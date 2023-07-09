@@ -24,7 +24,7 @@ fun CustomTabBar(listState: LazyListState) {
         // Add tabs for all of our pages
         types.forEachIndexed { index, title ->
             Tab(
-                text = { Text("" + title.toUpperCase(Locale.getDefault())) },
+                text = { Text(title.uppercase(Locale.getDefault())) },
                 selected = tempIndex.value == index,
                 onClick = {
                     coroutineScope.launch {

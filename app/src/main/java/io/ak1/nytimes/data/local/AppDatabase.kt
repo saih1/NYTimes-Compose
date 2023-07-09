@@ -1,6 +1,7 @@
 package io.ak1.nytimes.data.local
 
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.ak1.nytimes.model.Bookmarks
@@ -17,6 +18,15 @@ import io.ak1.nytimes.utility.calenderDate
 abstract class AppDatabase : RoomDatabase() {
     abstract fun resultsDao(): ResultsDao
     abstract fun bookmarksDao(): BookmarksDao
+
+    companion object {
+        fun createDb(context: Context) = synchronized(context) {
+            Room.databaseBuilder(
+                context,
+                AppDatabase::class.java, "database-stories"
+            ).build()
+        }
+    }
 }
 
 

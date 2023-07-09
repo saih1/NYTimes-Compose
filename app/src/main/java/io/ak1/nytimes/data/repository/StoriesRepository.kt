@@ -42,7 +42,7 @@ class StoriesRepository(
                 var height = 0
                 var width = 0
                 var urlMain = ""
-                if (!it.multimedia.isNullOrEmpty()) {
+                if (it.multimedia.isNotEmpty()) {
                     height = it.multimedia[0].height
                     width = it.multimedia[0].width
                     urlMain = it.multimedia[0].url ?: ""

@@ -3,7 +3,11 @@ package io.ak1.nytimes.data.remote
 
 import io.ak1.nytimes.BuildConfig
 import io.ak1.nytimes.model.StoriesResponse
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -22,6 +26,19 @@ interface ApiList {
     ): Response<StoriesResponse>
 
     companion object {
-        const val BASE_PATH = "https://api.nytimes.com/svc/topstories/v2/"
+        private const val BASE_PATH = "https://api.nytimes.com/svc/topstories/v2/"
+
+        fun createApiList(interceptor: HttpLoggingInterceptor): Retrofit {
+            val client = OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
+
+            return Retrofit
+                .Builder()
+                .baseUrl(BASE_PATH)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+        }
     }
 }

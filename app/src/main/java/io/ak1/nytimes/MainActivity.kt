@@ -18,6 +18,5 @@ class MainActivity : ComponentActivity() {
         setContent {
             RootComponent(liveViewModel, window)
         }
-
     }
 }

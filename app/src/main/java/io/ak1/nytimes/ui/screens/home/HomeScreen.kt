@@ -3,6 +3,7 @@ package io.ak1.nytimes.ui.screens.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -35,21 +36,22 @@ fun HomeScreenComposable(
     viewModel: StoriesViewModel,
     navController: NavController
 ) {
-    val stories = viewModel.getStories(mainType.value.toLowerCase(Locale.getDefault()))
+    val stories = viewModel.getStories(mainType.value.lowercase(Locale.getDefault()))
     val resultList = stories.pagedList.observeAsState(initial = listOf())
     val networkState = stories.networkState.observeAsState(initial = NetworkState.LOADED)
     val refreshState = stories.refreshState.observeAsState(initial = NetworkState.LOADED)
-    val swipeState = rememberSaveable {
-        mutableStateOf(false)
-    }
-
+    val swipeState = rememberSaveable { mutableStateOf(false) }
 
     // TODO: 24/05/21 add status for 429 Too Many Requests
     Scaffold(
         topBar = { HomeAppBar(navController) }
     ) {
         swipeState.value = refreshState.value == NetworkState.LOADING
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+        ) {
             CustomTabBar(listState)
             SwipeRefresh(
                 state = rememberSwipeRefreshState(swipeState.value),

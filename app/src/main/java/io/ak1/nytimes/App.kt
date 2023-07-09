@@ -20,8 +20,14 @@ class App : MultiDexApplication() {
             androidContext(applicationContext)
             // use Android logger - Level.INFO by default
             // androidLogger(Level.DEBUG)
-            koin.loadModules(listOf(databaseModule, networkModule, viewModelModule, repoModule))
-
+            koin.loadModules(
+                listOf(
+                    databaseModule,
+                    networkModule,
+                    viewModelModule,
+                    repoModule
+                )
+            )
         }
     }
 }
